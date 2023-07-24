@@ -1,0 +1,76 @@
+name: internlm_pytest
+
+on: 
+
+  pull_request:
+
+    branches:
+
+      - "main"
+
+      - "develop"
+
+    paths-ignore:
+
+      - "docs/**"
+
+      - "**.md"
+
+     
+
+jobs:
+
+  dataset-preparation:
+
+    runs-on: [lmtest]
+
+    steps:
+
+    - uses: actions/checkout@v3
+
+
+
+    - name: raw-chinese-data
+
+      run: |
+
+        source activate internlm-env-test
+
+        sh ./ci_scripts/data/tokenizer_chinese.sh
+
+
+
+    - name: alpaca-data
+
+      run: |
+
+        source activate internlm-env-test
+
+        sh ./ci_scripts/data/tokenizer_alpaca.sh
+
+
+
+
+
+  train:
+
+    runs-on: [lmtest]
+
+    steps:
+
+    - uses: actions/checkout@v3
+
+
+
+    - name: slurm-train
+
+      run: |
+
+        source activate internlm-env-test
+
+        sh ./pytest_scripts/ci_pipeline.sh
+
+        rm -rf $GITHUB_WORKSPACE/llm_ckpts
+
+
+
