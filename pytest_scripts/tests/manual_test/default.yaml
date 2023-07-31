@@ -1,0 +1,21 @@
+cluster: SH-IDC1
+head_node:
+    partition: caif_cpu
+    include: ""
+    exclude: SH-IDC1-10-140-0-[131-146,151-166]
+    cpu_per_task: 4
+    gpu_per_task: 0
+    script_path: ./tmp_head.sh
+    script_parm:
+    exclusive: false
+
+compute_node:
+    partition: caif_ci
+    include: ""
+    exclude: SH-IDC1-10-140-0-[131-146,151-166]
+    cpu_per_task: 4
+    gpu_per_task: 0
+    nodes: 1
+    script_path: ./tmp_compute.sh
+    script_parm:
+    exclusive: true
