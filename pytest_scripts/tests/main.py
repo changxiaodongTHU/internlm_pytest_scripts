@@ -1,7 +1,10 @@
 import pytest
 import sys
 import os
-
+from parse_log import parse_log_get_metrics
+#from manual_test.framework.db_operator.uploader import Uploader
+import pymongo
+import results_uploader
 
 def read_log(filename):
   bufsize = 2048
@@ -33,10 +36,23 @@ def test_internlm(testcase):
             bash {run_cmd_path} 2>&1 | tee {log_path}
         '''
         f.write(exec_cmd)
-
     result = os.system("bash exec_cmd.sh")
     assert 0 == result, "\n[FAILED] log:{}".format(read_log(log_path))
+    result_perf =  parse_log_get_metrics(log_path)
+    print("&&&&&%%%%%result_perf")
+    print(result_perf)
+    results_uploader.upload(result_perf)
+#    uploader = Uploader()
+#    uploader.set_db('internlm_test')
+#    uploader.set_collection("internlm_performance_test")
+#    uploader.upload(result_perf)
 
+#    mongodb_uri = "mongodb://root:password@10.140.52.25/"
+#    mongodb_name = "internlm_test"
+#    mongo_client = pymongo.MongoClient(mongodb_uri)
+#    mongodb = mongo_client[mongodb_name]
+#    internlm_table = mongodb["internlm_performance_test"]
+#    internlm_table.insert_one(result_perf)
 
 if __name__ == "__main__":
     raise SystemExit(
