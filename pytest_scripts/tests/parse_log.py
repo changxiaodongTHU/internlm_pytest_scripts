@@ -17,13 +17,16 @@ def parse_log_get_metrics(log_file_path):
             metrics_dict = dict()
             if "tflops=" in ll:
                 label_result = "tflops=" + ll.split("tflops=")[1]
-                label_result_list = label_result.split(",")
+                label_result = label_result.replace("(tokens/gpu/second)", "tgs")
+                label_result_list = label_result.split(" ")
                 for item in label_result_list:
+                    if item == "tgs":
+                        continue
                     key = item.split("=")[0]
                     value = float(item.split("=")[1])
                     if key == "tflops":
                         tflops_list.append(value)
-                    if key == "tgs (tokens/gpu/second)":
+                    if key == "tgs":
                         tgs_list.append(value)
                     metrics_dict[key] = value
                 parse_log_dict_list.append(metrics_dict)
