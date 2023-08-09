@@ -1,0 +1,26 @@
+{
+    "internlm_functional_0001": {
+        "directory": "InternLM",
+        "testcases": [
+            "srun -p llm2 -n 8 --ntasks-per-node=8 --gpus-per-task=1 python train.py --config ./configs/internlm_functional_0001.py"
+        ]
+    },
+    "internlm_funtional_0002": {
+        "directory": "InternLM",
+        "testcases": [
+            "srun -p llm2 -n 8 --ntasks-per-node=8 --gpus-per-task=1 python train.py --config ./configs/internlm_functional_0002.py"
+        ]
+    },
+    "internlm_functional_0001": {
+        "directory": "InternLM",
+        "testcases": [
+            "srun -p llm2 -n 8 --ntasks-per-node=8 --gpus-per-task=1 python train.py --config ./configs/internlm_functional_0003.py"
+        ]
+    },
+    "internlm_funtional_0002": {
+        "directory": "InternLM",
+        "testcases": [
+            "srun -p llm2 -n 8 --ntasks-per-node=8 --gpus-per-task=1 python train.py --config ./configs/internlm_functional_0004.py"
+        ]
+    }
+}
