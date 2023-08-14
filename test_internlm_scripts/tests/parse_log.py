@@ -31,8 +31,8 @@ def parse_log_get_metrics(log_file_path):
                     metrics_dict[key] = value
                 parse_log_dict_list.append(metrics_dict)
 
-        sorted(tflops_list)
-        sorted(tgs_list)
+        tflops_list = sorted(tflops_list)
+        tgs_list = sorted(tgs_list)
 
         test_result = dict()
         test_result["case_name"] = case_name
